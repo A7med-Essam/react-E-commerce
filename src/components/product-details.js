@@ -81,10 +81,9 @@ function ProductDetails(params) {
                             </div>
                         </div>
                         <div className="col-lg-7 col-md-12">
-                            <ProductInfo />
+                            <ProductInfo product={getCurrentProuct} />
                         </div>
                     </div>
-
                 </div>
             </section>
         </>
@@ -122,13 +121,6 @@ function OutOfStockButton(params) {
 
 function BuyButton(params) {
     const [getCart, setCart] = useRecoilState(cart);
-    const { id } = useParams();
-    const [getCurrentProuct, setCurrentProuct] = useState();
-    const [getProucts, setProucts] = useRecoilState(currentProducts);
-
-    useEffect(() => {
-        setCurrentProuct(getProucts.find(e => e.productId == id));
-    }, [id, getCurrentProuct])
 
     function addToCart(product) {
         if (getCart.some(p => p.productId === product.productId)) {
@@ -161,7 +153,7 @@ function BuyButton(params) {
                         </div>
                         <div className="text-left">
                             <div className="price-wrapper price-wrapper--large product-main-price">
-                                <span className="color-danger">{getCurrentProuct?.price} EGP</span>
+                                <span className="color-danger">{params?.product?.price} EGP</span>
                                 <small>2,886.28 EGP</small>
                             </div>
                         </div>
@@ -197,7 +189,7 @@ function BuyButton(params) {
                         </div> */}
                         <div className="flex-grow-1">
                             <div className="btn--oval s-add-product-button-with-quick-buy hydrated">
-                                <button onClick={() => { addToCart(getCurrentProuct) }}
+                                <button onClick={() => { addToCart(params?.product) }}
                                     className="undefined s-button-element s-button-btn s-button-solid s-button-wide s-button-primary s-button-loader-center mx-2">
                                     <span className="s-button-text">إضافة للسلة</span>
                                 </button>
@@ -226,20 +218,14 @@ function BuyButton(params) {
 }
 
 function ProductInfo(params) {
-    const { id } = useParams();
-    const [getCurrentProuct, setCurrentProuct] = useState();
-    const [getProucts, setProucts] = useRecoilState(currentProducts);
-    useEffect(() => {
-        setCurrentProuct(getProucts.find(e => e.productId == id));
-    })
     return (
         <>
             <div className="product-details__info">
                 <div className="product-details__title">
                     <div className="title-wrapper">
-                        <h2 className="title title--xx-large  mb-10 ">{getCurrentProuct?.name}</h2>
+                        <h2 className="title title--xx-large  mb-10 ">{params?.product?.name}</h2>
                         <div className="price-wrapper-info price-wrapper--large product-main-price">
-                            <span className="color-danger">{getCurrentProuct?.price} EGP</span>
+                            <span className="color-danger">{params?.product?.price} EGP</span>
                             <span className="price-wrapper">
                                 <small>12,234.10 EGP</small>
                             </span>
@@ -280,7 +266,7 @@ function ProductInfo(params) {
                 </article>
                 <div className="grid-block pay-installment mb-20">
                 </div>
-                {true ? <BuyButton /> : <OutOfStockButton />}
+                {true ? <BuyButton product={params?.product}/> : <OutOfStockButton />}
             </div>
         </>
     )
