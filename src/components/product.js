@@ -1,11 +1,9 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilState } from 'recoil';
 import { cart, currentProducts } from "../App";
 import $ from 'jquery';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';

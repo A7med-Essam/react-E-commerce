@@ -1,24 +1,22 @@
 import { useEffect, useState } from "react";
-import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { cart, currentProducts, currentCategory } from "../App";
 import $ from 'jquery';
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCategory } from "../store/slices/category-slice";
 
 function Navbar(params) {
     const [getTotalPrice, setTotalPrice] = useState();
-    const [getCategory, setCategory] = useState();
+    const Dispatch = useDispatch();
+    const getCategory = useSelector(state => state.categories);
+
     const [getCurrentCategory, setCurrentCategory] = useRecoilState(currentCategory);
     const [getProuct, setProucts] = useRecoilState(currentProducts);
     const [getCart, setCart] = useRecoilState(cart);
 
-
     useEffect(() => {
-        axios.get("http://localhost:5295/GetAllCategoriesWithoutPagination").then(res => {
-            setCategory(res.data)
-            setCurrentCategory(res.data[0])
-            setProucts(res.data[0].products)
-        })
+        Dispatch(fetchCategory());
     }, [])
 
     useEffect(() => {

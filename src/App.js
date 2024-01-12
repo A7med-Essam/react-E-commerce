@@ -2,7 +2,6 @@ import './App.css';
 import Navbar from './components/navbar';
 import Product from './components/product';
 import SuccessCheckout from './components/successCheckout';
-import $ from 'jquery';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ProductDetails from './components/product-details';
 import Cart from './components/cart';

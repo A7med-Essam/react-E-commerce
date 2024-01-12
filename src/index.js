@@ -5,15 +5,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { RecoilRoot } from 'recoil';
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from 'react-redux';
+import { AppStore } from './store/AppStore';
 
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <BrowserRouter>
-        <RecoilRoot>
-            <App />
-        </RecoilRoot>
+        <Provider store={AppStore}>
+            <RecoilRoot>
+                <App />
+            </RecoilRoot>
+        </Provider>
     </BrowserRouter>
 
 
